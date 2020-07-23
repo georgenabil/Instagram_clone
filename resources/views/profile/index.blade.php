@@ -5,17 +5,24 @@
 
     <div class="row">
             <div class="col-3">
-                <img src="/imgs/profile.jpg" class="rounded-circle" style="width:200px; ">
+                <img src="{{ $user->profile->profileImage()}}" class="rounded-circle" style="width:200px; ">
             </div>
 
             <div class="col-9">
 
                        <div class="d-flex justify-content-between align-items-lg-baseline">
+
                            <h1>{{ $user->username }}</h1>
-                           <a href="/p">Add new Post </a>
+                           <follow-button user_id="{{$user->id}}" follows="{{$follows}}"></follow-button>
+                           @can ('update',$user->profile)
+                           <a href="/p/create">Add new Post </a>
+                           @endcan
                        </div>
+                          @can ('update',$user->profile)
+                         <a href="/profile/{{$user->id}}/edit">Edit Profile </a>
+                          @endcan
                        <div class="d-flex">
-                         <div class="pr-5"><strong>15</strong> posts</div>
+                         <div class="pr-5"><strong>{{$user->posts->count()}}</strong> posts</div>
                          <div class="pr-5"><strong>275k</strong> followers</div>
                          <div class="pr-5"><strong>198</strong> following</div>
                        </div>
@@ -28,17 +35,15 @@
 
 
     <div class="row pt-5">
-                <div class="col-4">
-                    <img src="/imgs/profile.jpg" class="w-100">
+         @foreach($user->posts as $posts)
+                <div class="col-4 pb-4">
+                    <a href="/p/{{$posts->id}}">
+                    <img src="/storage/{{$posts->image}}" class="w-100">
+                    </a>
                 </div>
-                <div class="col-4">
-                    <img src="/imgs/profile.jpg" class="w-100">
-                </div>
-                <div class="col-4">
-                    <img src="/imgs/profile.jpg" class="w-100">
-                </div>
+           @endforeach
 
-      </div>
+    </div>
 
 
  </div>

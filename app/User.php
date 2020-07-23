@@ -41,6 +41,23 @@ class User extends Authenticatable
         return $this->hasOne(Profile::Class);
     }
     public function posts(){
-        return $this->hasMany(Post::class);
+        return $this->hasMany(Post::class)->orderBy('created_at','DESC');
     }
+
+    public function following(){
+        return $this->belongsToMany(Profile::class);
+    }
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::created(function($user){
+            $user->profile()->create(
+                ['title'=>$user->username]
+            );
+        });
+    }
+
+
 }
