@@ -23,7 +23,7 @@
                           @endcan
                        <div class="d-flex">
                          <div class="pr-5"><strong>{{$user->posts->count()}}</strong> posts</div>
-                         <div class="pr-5"><strong>275k</strong> followers</div>
+                         <div class="pr-5"><strong>{{$user->profile->followers->count() }}</strong> followers</div>
                          <div class="pr-5"><strong>198</strong> following</div>
                        </div>
 
