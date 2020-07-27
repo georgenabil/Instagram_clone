@@ -7,18 +7,20 @@ namespace App\Http\Controllers;
 use App\Post;
 use Illuminate\Database\Eloquent\Model;
 use Intervention\Image\Facades\Image;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\File;
 
 class PostsController extends Controller
 {
-    public function __construct()
+   /* public function __construct()
     {
         $this->middleware('auth');
-    }
+    }*/
 
     public  function  index(){
 
         $users = auth()->user()->following()->pluck('profiles.user_id');
-        $posts=Post::whereIn("user_id",$users)->latest()->paginate(1);
+        $posts=Post::whereIn("user_id",$users)->with('user')->with('user.profile')->latest()->paginate(5);
 
          return view('posts.index',compact('posts'));
 
@@ -45,8 +47,6 @@ class PostsController extends Controller
             'image'=>$imagePath
         ]);
 
-
-
         return redirect('/profile/'.auth()->user()->id);
 
     }
@@ -54,6 +54,11 @@ class PostsController extends Controller
     public  function show(Post $post ){
 
         return view('posts.show',compact('post'));
+    }
+    public  function delete(Post $post){
+        $this->authorize('update',$post);
+        $post->delete();
+         return redirect('/profile/'.auth()->user()->id);
     }
 
 }

@@ -24,7 +24,13 @@
 
                     <hr/>
                     <p><span class="font-weight-bold"><a class="text-dark" href="/profile/{{$post->user->id}}">{{$post->user->username}}</a> </span> {{$post->caption}}</p>
-
+                      @can('delete',$post)
+                     <form action="/p/{{$post->id}}" method="post">
+                            @csrf
+                            @method("DELETE")
+                            <button class="btn">&#10060; Delete</button>
+                      </form>
+                       @endcan
                 </div>
                 
             </div>

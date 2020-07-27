@@ -30,5 +30,6 @@ Route::get('/','PostsController@index');
 Route::get('/p/create','PostsController@create')->name("post.create");
 Route::post('/p',"PostsController@store")->name('post.store');
 Route::get('/p/{post}',"PostsController@show")->name("post.show");
+Route::delete('/p/{post}',"PostsController@delete")->name('post.delete');
 
 Route::post('/follow/{user}','FollowsController@store')->name('follow.store');
