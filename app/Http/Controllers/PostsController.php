@@ -12,10 +12,10 @@ use Illuminate\Support\Facades\File;
 
 class PostsController extends Controller
 {
-   /* public function __construct()
+    public function __construct()
     {
         $this->middleware('auth');
-    }*/
+    }
 
     public  function  index(){
 
