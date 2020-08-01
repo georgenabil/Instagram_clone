@@ -4,6 +4,7 @@
 @section('content')
 <div class="container">
 
+
     @foreach($posts as $post)
         <div class="row">
             <div class="col-8 offset-2 pt-4 ">
@@ -38,6 +39,25 @@
         <div class="row">
             <div class="col-12 d-flex justify-content-center">{{ $posts->links() }}</div>
         </div>
+
+        @if($posts->isEmpty())
+            <h3 class="text-center">Suggested Users </h3>
+            <div class="d-flex flex-sm-wrap ">
+            @foreach($allusers as $SugUser)
+             <div class="card" style="width: 15rem; margin: 15px;">
+                <img class="card-img-top rounded-circle w-85" src="{{$SugUser->profile->profileImage() }}" alt="Card image cap ">
+                <div class="card-body">
+                    <h5 class="card-title">{{$SugUser->username}}</h5>
+                    <a href="/profile/{{$SugUser->id}}" class="btn btn-primary btn-block">follow</a>
+
+                </div>
+            </div>
+                @endforeach
+           </div>
+
+        @endif
+
+
 
 </div>
 

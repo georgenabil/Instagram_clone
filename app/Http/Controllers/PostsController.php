@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 
 
 use App\Post;
+use App\User;
 use Illuminate\Database\Eloquent\Model;
 use Intervention\Image\Facades\Image;
 use Illuminate\Support\Facades\Storage;
@@ -22,7 +23,12 @@ class PostsController extends Controller
         $users = auth()->user()->following()->pluck('profiles.user_id');
         $posts=Post::whereIn("user_id",$users)->with('user')->with('user.profile')->latest()->paginate(5);
 
-         return view('posts.index',compact('posts'));
+
+        $NSuggestedUsers=$users->toArray();
+        array_push($NSuggestedUsers,auth()->user()->id);
+        $allusers = User::whereNotIn('id',$NSuggestedUsers)->with('profile')->get();
+
+        return view('posts.index',compact('posts', 'allusers'));
 
     }
 

@@ -11,7 +11,7 @@ class Profile extends Model
 
     public function profileImage(){
 
-         return  ($this->image) ? '/storage/'.$this->image :'/storage/profile/17DpkFTtaSMddWIj65hIUDo8iBEoV1ez3u8uHb6r.png';
+         return  ($this->image) ? '/storage/'.$this->image :'/imgs/testprofile.png';
     }
     public function user()
     {

@@ -5,7 +5,7 @@
 
     <div class="row">
             <div class="col-3">
-                <img src="{{ $user->profile->profileImage()}}" class="rounded-circle" style="width:200px; ">
+                <img src="{{ $user->profile->profileImage()}}" class="rounded-circle w-100" style="width:200px; ">
             </div>
 
             <div class="col-9">
